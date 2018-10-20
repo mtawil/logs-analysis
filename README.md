@@ -6,17 +6,44 @@ These instructions will help you out to run this code on your local machine.
 
 ### Prerequisites
 
-* Download and Install the latest version of [Python 3.7.0](https://www.python.org/downloads/)
-* Install pip3 by executing the following commands:
+1. Download and install [Vagrant 2.2.0](https://releases.hashicorp.com/vagrant/2.2.0/)
+2. Download Vagrantfile and install the virtual box:
+```sh
+$ git clone https://github.com/udacity/fullstack-nanodegree-vm.git FSND_VM
+$ cd FSND_VM/vagrant
+$ vagrant up
+```
+> Depends on your internet speed, the `vagrant up` command will take a few minutes, be patient :)
+
+3. Download the database file, unzip it, then delete the unneeded zip file:
 
 ```sh
-$ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-$ python3 get-pip.py --user
+$ curl -L https://github.com/mtawil/logs-analysis/files/2498083/newsdata.zip > newsdata.zip
+$ unzip newsdata.zip && rm -f newsdata.zip
 ```
+
+> Make sure that you've downloaded it on the same vagrant directory so that it can be accessible inside the virtual box.
 
 ### Installing
 
-You need to install the project requirements before running the script; please go to the project directory, then run the following command:
+1. First of all, let's log into the virtual box using `vagrant ssh`, after that, go to the shared directory inside the virtual box `cd /vagrant`.
+2. Clone this repo into the shared directory:
+
+```sh
+$ git clone https://github.com/mtawil/logs-analysis.git /vagrant/logs-analysis
+```
+
+> Please make sure you're on the shared directory and all the listed files as below are presented:
+>
+> <img src="https://user-images.githubusercontent.com/700753/47255461-33812380-d47a-11e8-8485-6ae57e932a5b.png" width="458" height="112">
+
+3. Import the database:
+
+```sh
+psql -d news -f newsdata.sql
+```
+
+4. Install the project requirements:
 
 ```sh
 $ pip3 install -r requirements.txt
@@ -29,7 +56,7 @@ The output you get should be like this:
 
 ## Running and analysis the logs
 
-After you successfully installation of python3 and pip3, you can run this code by:
+After you successfully installations, you can run this code by:
 ```sh
 $ python3 main.py
 ```
