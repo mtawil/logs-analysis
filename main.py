@@ -65,9 +65,9 @@ logs_analysis.print_report(
     "\n3. On which days did more than 1% of requests lead to errors?",
 
     """
-        SELECT all_logs.day, ROUND(
-            error_logs.views::NUMERIC * 100 / all_logs.views::NUMERIC, 2
-        ) AS error
+        SELECT
+            all_logs.day,
+            ROUND(error_logs.views * 100.0 / all_logs.views, 2) AS error
 
         FROM (
             SELECT DATE(time) AS day, COUNT(id) AS views
@@ -82,9 +82,7 @@ logs_analysis.print_report(
             GROUP BY day
         ) AS error_logs ON all_logs.day = error_logs.day
 
-        WHERE ROUND(
-            error_logs.views::NUMERIC * 100 / all_logs.views::NUMERIC, 2
-        ) > 1.00
+        WHERE ROUND(error_logs.views * 100.0 / all_logs.views, 2) > 1.00
 
         ORDER BY error DESC
         LIMIT 1
