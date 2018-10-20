@@ -1,5 +1,7 @@
 # Logs Analysis
 
+This project has been developed in response to the newspaper request to analyse their articles and authors based on logs.
+
 ## Getting Started
 
 These instructions will help you out to run this code on your local machine.
